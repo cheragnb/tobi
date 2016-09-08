@@ -7,9 +7,6 @@ from time import sleep
 import threading
 import time, threading
 
-
-
-
 connection = SerialManager(sleep_after_connect=2)
 connection.open()
 a = ArduinoApi(connection = connection)
@@ -60,6 +57,8 @@ class tobi:
         if not(motor>0 and motor < 7):
             print ("wrong motor chosen")
             return
+        #bit |= (1<<x) sets bit x high
+        #bit &= ~(1<<x) sets bit x low
         
         if (direction == 1):
             tobi.bit_1 |= (1<<motor-1)  #because of circuitry , check eagle
@@ -119,6 +118,28 @@ class tobi:
             tobi.encoder[i] = a.analogRead(i)
         threading.Timer(0.05,self.__setEncoder).start()
 
+    def led(self,led,state):
+        """turn LED 1,2,3,4 on/off. 1-> on 0-> off"""
+    
+        if (led < 4) :
+            if state == 1:
+                tobi.bit_2 |= (1<<led)
+            else :
+                tobi.bit_2 &= ~(1<<led)
+        elif (led == 4) :
+            #change PCB to remove this part
+            if state == 1:
+                tobi.bit_2 |= (1<<7)
+            else :
+                tobi.bit_2 &= ~(1<<7)
+
+    
+                
+
+    
+
+
+            
 
 
                 

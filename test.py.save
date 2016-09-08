@@ -1,0 +1,11 @@
+from tobi import*
+
+tobi = tobi()
+tobi.enable()
+tobi.powerAxis(1,0)
+tobi.setMotor(3,1)
+
+while (True): 
+	tobi.tprint()
+tobi.led(1,0
+
